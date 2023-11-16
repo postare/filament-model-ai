@@ -49,26 +49,31 @@ class ModelAi extends Page
 
     public function __construct()
     {
-        $this->open_ai_model = config('model-ai.open_ai_model',
+        $this->open_ai_model = config(
+            'model-ai.open_ai_model',
             [
                 'gpt-3.5-turbo-1106' => 'Updated GPT 3.5 Turbo', // predefined first
                 'gpt-4-1106-preview' => 'GPT-4 Turbo',
             ],
         );
 
-        $this->model = config('model-ai.laravel_model',
+        $this->model = config(
+            'model-ai.laravel_model',
             \App\Models\User::class
         );
 
-        $this->selected_columns = config('model-ai.selected_columns',
+        $this->selected_columns = config(
+            'model-ai.selected_columns',
             ['name', 'email']
         );
 
-        $this->field_label = config('model-ai.field_label',
+        $this->field_label = config(
+            'model-ai.field_label',
             'name'
         );
 
-        $this->field_id = config('model-ai.field_id',
+        $this->field_id = config(
+            'model-ai.field_id',
             'id'
         );
 
