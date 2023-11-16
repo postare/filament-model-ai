@@ -12,7 +12,7 @@ class ModelAi extends \Filament\Pages\Page
 
     public ?array $data = [];
 
-    public function getTitle(): string | \Illuminate\Contracts\Support\Htmlable
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
     {
         return __('filament-model-ai::model-ai.title');
     }

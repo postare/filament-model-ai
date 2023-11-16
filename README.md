@@ -1,8 +1,6 @@
 # Integrate AI in FilamentPHP, leveraging model data for smart commands.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/postare/filament-model-ai.svg?style=flat-square)](https://packagist.org/packages/postare/filament-model-ai)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/postare/filament-model-ai/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/postare/filament-model-ai/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/postare/filament-model-ai/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/postare/filament-model-ai/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/postare/filament-model-ai.svg?style=flat-square)](https://packagist.org/packages/postare/filament-model-ai)
 
 ## Installation
