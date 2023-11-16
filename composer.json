@@ -1,29 +1,27 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "postare/filament-model-ai",
+    "description": "Integrate AI in FilamentPHP, leveraging model data for smart commands.",
     "keywords": [
-        ":vendor_name",
+        "postare",
         "laravel",
-        ":package_slug"
+        "filament-model-ai"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/postare/filament-model-ai",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/postare/filament-model-ai/issues",
+        "source": "https://github.com/postare/filament-model-ai"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Francesco Apruzzese",
+            "email": "inerba@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
         "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
-        "filament/tables": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0",
         "illuminate/contracts": "^10.0"
     },
@@ -42,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Postare\\ModelAi\\": "src/",
+            "Postare\\ModelAi\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "Postare\\ModelAi\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -68,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Postare\\ModelAi\\ModelAiServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "ModelAi": "Postare\\ModelAi\\Facades\\ModelAi"
             }
         }
     },

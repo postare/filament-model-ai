@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Postare\ModelAi\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ModelAiCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-model-ai';
 
     public $description = 'My command';
 
