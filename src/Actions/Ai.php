@@ -34,7 +34,7 @@ class Ai
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => $system_prompt.' Considera i dati alla fine di questo messaggio come contesto e rispondi alle domande che ti farò successivamente: '.$model_data_json,
+                    'content' => $system_prompt . ' Considera i dati alla fine di questo messaggio come contesto e rispondi alle domande che ti farò successivamente: ' . $model_data_json,
                 ],
                 [
                     'role' => 'user',

@@ -13,7 +13,7 @@ class ModelAi extends \Filament\Pages\Page
 
     public ?array $data = [];
 
-    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    public function getTitle(): string | \Illuminate\Contracts\Support\Htmlable
     {
         return __('filament-model-ai::model-ai.title');
     }
@@ -185,30 +185,36 @@ class ModelAi extends \Filament\Pages\Page
      */
     private function initializeConfigurations(): void
     {
-        $this->open_ai_model = config('model-ai.openai_models',
+        $this->open_ai_model = config(
+            'model-ai.openai_models',
             [
                 'gpt-3.5-turbo-1106' => 'Updated GPT 3.5 Turbo', // predefined first
                 'gpt-4-1106-preview' => 'GPT-4 Turbo',
             ],
         );
 
-        $this->model = config('model-ai.laravel_model',
+        $this->model = config(
+            'model-ai.laravel_model',
             \App\Models\User::class
         );
 
-        $this->selected_columns = config('model-ai.selected_columns',
+        $this->selected_columns = config(
+            'model-ai.selected_columns',
             ['name', 'email']
         );
 
-        $this->field_label = config('model-ai.field_label',
+        $this->field_label = config(
+            'model-ai.field_label',
             'name'
         );
 
-        $this->system_prompt = config('model-ai.system_prompt',
+        $this->system_prompt = config(
+            'model-ai.system_prompt',
             'You are a helpful assistant'
         );
 
-        $this->field_id = config('model-ai.field_id',
+        $this->field_id = config(
+            'model-ai.field_id',
             'id'
         );
 
