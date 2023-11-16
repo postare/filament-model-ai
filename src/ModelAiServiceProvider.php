@@ -80,7 +80,7 @@ class ModelAiServiceProvider extends PackageServiceProvider
 
         // Handle Stubs
         if (app()->runningInConsole()) {
-            foreach (app(Filesystem::class)->files(__DIR__.'/../stubs/') as $file) {
+            foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
                     $file->getRealPath() => base_path("stubs/filament-model-ai/{$file->getFilename()}"),
                 ], 'filament-model-ai-stubs');
@@ -103,8 +103,8 @@ class ModelAiServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-model-ai', __DIR__ . '/../resources/dist/components/filament-model-ai.js'),
-            Css::make('filament-model-ai-styles', __DIR__.'/../resources/dist/filament-model-ai.css'),
-            Js::make('filament-model-ai-scripts', __DIR__.'/../resources/dist/filament-model-ai.js'),
+            Css::make('filament-model-ai-styles', __DIR__ . '/../resources/dist/filament-model-ai.css'),
+            Js::make('filament-model-ai-scripts', __DIR__ . '/../resources/dist/filament-model-ai.js'),
         ];
     }
 
