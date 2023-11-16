@@ -1,10 +1,13 @@
 {
     "name": "postare/filament-model-ai",
     "description": "Integrate AI in FilamentPHP, leveraging model data for smart commands.",
+    "type": "library",
+    "version": "1.0.0",
     "keywords": [
-        "postare",
+        "filamentphp",
         "laravel",
-        "filament-model-ai"
+        "openai",
+        "plugin"
     ],
     "homepage": "https://github.com/postare/filament-model-ai",
     "support": {
