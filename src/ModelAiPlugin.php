@@ -14,7 +14,9 @@ class ModelAiPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel->pages([
+            \Postare\ModelAi\Filament\Pages\ModelAi::class,
+        ]);
     }
 
     public function boot(Panel $panel): void

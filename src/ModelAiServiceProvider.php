@@ -2,7 +2,6 @@
 
 namespace Postare\ModelAi;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
@@ -43,6 +42,8 @@ class ModelAiServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
             $package->hasConfigFile();
+
+            ray($package->basePath("/../config/{$configFileName}.php"));
         }
 
         if (file_exists($package->basePath('/../database/migrations'))) {
