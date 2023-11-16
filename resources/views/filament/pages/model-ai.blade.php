@@ -2,11 +2,6 @@
     <div x-data="{
         finished: @entangle('finished'),
         question: @entangle('question'),
-        init() {
-            window.Livewire.on('typing', () => {
-                console.log('typing');
-            });
-        }
     }" x-cloak>
         <x-filament-panels::form wire:submit="save">
             {{ $this->form }}

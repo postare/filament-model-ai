@@ -5,7 +5,6 @@ namespace Postare\ModelAi\Filament\Pages;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Form;
-use Postare\ModelAi\Actions\Ai;
 
 class ModelAi extends \Filament\Pages\Page
 {
@@ -76,7 +75,7 @@ class ModelAi extends \Filament\Pages\Page
                     ->getSearchResultsUsing(fn (string $search): array => $this->model::where($this->field_label, 'like', "%{$search}%")->limit(50)->pluck($this->field_label, $this->field_id)->toArray())
                     ->afterStateUpdated(function (Forms\Set $set, $state) {
                         $data = $this->model::select($this->selected_columns)->where($this->field_id, $state)->first();
-                        $set('data', $data->toJson(JSON_PRETTY_PRINT));
+                        $set('context_data', $data->toJson(JSON_PRETTY_PRINT));
                     })
                     ->required(),
 
@@ -141,7 +140,7 @@ class ModelAi extends \Filament\Pages\Page
     {
         $data = $this->form->getState();
 
-        $stream = Ai::make()->stream(
+        $stream = \Postare\ModelAi\ModelAi::make()->stream(
             $data['prompt'],
             $this->system_prompt,
             $data['context_data'],
