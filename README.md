@@ -1,4 +1,4 @@
-# Laravel ModelAI Plugin
+# Filament ModelAI Plugin
 
 ModelAI is a plugin designed for [FilamentPHP](https://filamentphp.com/) that interfaces with OpenAI APIs. Its primary function is to use existing model data as context to formulate requests to OpenAI APIs. In practice, it allows users to select specific records from a data model, such as a list of real estate properties or e-commerce products, and use this information as a basis for generating intelligent content or responses through OpenAI's AI capabilities.
 
