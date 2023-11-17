@@ -2,7 +2,7 @@
     "name": "postare/filament-model-ai",
     "description": "Integrate AI in FilamentPHP, leveraging model data for smart commands.",
     "type": "library",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "keywords": [
         "filamentphp",
         "laravel",
