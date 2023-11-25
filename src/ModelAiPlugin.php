@@ -7,6 +7,10 @@ use Filament\Panel;
 
 class ModelAiPlugin implements Plugin
 {
+    public function boot(Panel $panel): void
+    {
+    }
+
     public function getId(): string
     {
         return 'filament-model-ai';
@@ -17,11 +21,6 @@ class ModelAiPlugin implements Plugin
         $panel->pages([
             \Postare\ModelAi\Filament\Pages\ModelAiPage::class,
         ]);
-    }
-
-    public function boot(Panel $panel): void
-    {
-        //
     }
 
     public static function make(): static
