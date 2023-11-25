@@ -18,6 +18,8 @@ class ModelAi
 
     public $user_prompt;
 
+    public $function;
+
     public function __construct()
     {
         // Inizializza il client OpenAI
@@ -36,6 +38,14 @@ class ModelAi
     public function system(string $system_prompt): self
     {
         $this->system_prompt = $system_prompt;
+
+        return $this;
+    }
+
+    // Metodo per impostare una funzione
+    public function function(array $function): self
+    {
+        $this->function = $function;
 
         return $this;
     }
@@ -91,6 +101,11 @@ class ModelAi
             ];
         }
 
+        // Se è impostata la funzione
+        if ($this->function) {
+            $payload['functions'] = [$this->function];
+        }
+
         if (! empty($this->eloquent_model)) {
             $model = $this->eloquent_model['class'];
             $id = $this->eloquent_model['id'];
@@ -115,9 +130,24 @@ class ModelAi
         }
 
         // Esegui la richiesta al servizio OpenAI
-        $response = $this->openai_client->chat()->create($payload);
+        try {
+            $response = $this->openai_client->chat()->create($payload);
 
-        return $response->choices[0]->message->content;
+            // Check if there's a function call response
+            if (isset($response->choices[0]->message->functionCall->arguments)) {
+                return json_decode($response->choices[0]->message->functionCall->arguments);
+            }
+
+            // If not, then return the standard message content
+            return $response->choices[0]->message->content
+                ? json_decode($response->choices[0]->message->content)
+                : null;
+        } catch (\Exception $e) {
+            $this->handleException($e);
+
+            return null;
+        }
+
     }
 
     /**
