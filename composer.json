@@ -1,6 +1,6 @@
 {
     "name": "postare/filament-model-ai",
-    "description": "Integrate AI in FilamentPHP, leveraging model data for smart commands.",
+    "description": "Integrate artificial intelligence into FilamentPHP, leveraging your Eloquent Model data as knowledge.",
     "type": "library",
     "keywords": [
         "filamentphp",
