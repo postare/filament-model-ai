@@ -20,6 +20,10 @@ You can easily install the package via Composer:
 composer require postare/filament-model-ai
 ```
 
+## Compatibility
+The last version of this package compatible with Laravel 10 is v1.0.3. For Laravel 11 and onwards, please use the latest release.
+
+
 Once the package is installed, you need to add your OpenAI API Key to your `.env` file:
 
 ```bash
