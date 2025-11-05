@@ -53,29 +53,33 @@ class ModelAiPage extends \Filament\Pages\Page
 
     public function form(Form $form): Form
     {
-
-        $default_openai_model = config('model-ai.default_openai_model');
-        $eloquent_model = config('model-ai.eloquent_model');
-        $field_label = config('model-ai.field_label');
-        $field_id = config('model-ai.field_id');
+        $models = config('model-ai.models');
+        $defaultModelConfig = $models[0];
+        $eloquent_model = $defaultModelConfig['eloquent_model'];
+        $field_label = $defaultModelConfig['field_label'];
+        $field_id = $defaultModelConfig['field_id'];
+        $selected_columns = $defaultModelConfig['selected_columns'];
         $predefined_prompts_actions = $this->predefinedPromptsToActions(config('model-ai.predefined_prompts', []));
-        $selected_columns = config('model-ai.selected_columns');
-
+        $default_openai_model = config('model-ai.default_openai_model');
         $disabled_openai_model_selection = config('model-ai.disable_openai_model_selection');
 
         return $form
             ->schema([
-
                 Forms\Components\Select::make('item')
                     ->label(__('filament-model-ai::model-ai.form.item'))
                     ->live(false, 500)
                     ->searchable()
-                    ->getSearchResultsUsing(fn (string $search): array => $eloquent_model::where($field_label, 'like', "%{$search}%")->limit(50)->pluck($field_label, $field_id)->toArray())
-                    ->afterStateUpdated(function (Forms\Set $set, $state) use ($eloquent_model, $selected_columns, $field_id) {
-                        $data = $eloquent_model::select($selected_columns)->where($field_id, $state)->first();
-                        $set('context_data', $data->toJson(JSON_PRETTY_PRINT));
-                    })
-                    ->required(),
+                    ->getSearchResultsUsing(fn (string $search): array =>
+                    $eloquent_model::where($field_label, 'like', "%{$search}%")->limit(50)->pluck($field_label, $field_id)->toArray()
+                    )
+                    ->afterStateUpdated(function (Forms\Set $set, $state) use ($eloquent_model, $selected_columns, $field_id, $models) {
+                        if ($state) {
+                            $data = $eloquent_model::select($selected_columns)->where($field_id, $state)->first();
+                            $set('context_data', $data ? $data->toJson(JSON_PRETTY_PRINT) : '');
+                        } else {
+                            $set('context_data', $this->getAllModelsContext($models));
+                        }
+                    }),
 
                 Forms\Components\Select::make('ai_model')
                     ->label(__('filament-model-ai::model-ai.form.ai_model'))
@@ -83,7 +87,6 @@ class ModelAiPage extends \Filament\Pages\Page
                         if ($disabled_openai_model_selection) {
                             return [$default_openai_model => $default_openai_model];
                         }
-
                         return \Postare\ModelAi\ModelAi::chat()->listModels();
                     })
                     ->disabled($disabled_openai_model_selection)
@@ -93,8 +96,7 @@ class ModelAiPage extends \Filament\Pages\Page
                     ->label(__('filament-model-ai::model-ai.form.context_data'))
                     ->hidden(fn (Forms\Get $get) => ! $get('item'))
                     ->rows(5)
-                    ->columnSpanFull()
-                    ->required(),
+                    ->columnSpanFull(),
 
                 Forms\Components\Textarea::make('prompt')
                     ->label(__('filament-model-ai::model-ai.form.prompt'))
@@ -114,6 +116,19 @@ class ModelAiPage extends \Filament\Pages\Page
             ])
             ->columns(2)
             ->statePath('data');
+    }
+
+    protected function getAllModelsContext(array $models): string
+    {
+        $result = [];
+        foreach ($models as $modelConfig) {
+            $modelClass = $modelConfig['eloquent_model'];
+            $columns = $modelConfig['selected_columns'];
+            $label = $modelConfig['label'] ?? class_basename($modelClass);
+            $items = $modelClass::select($columns)->limit(10)->get();
+            $result[$label] = $items->toArray();
+        }
+        return json_encode($result, JSON_PRETTY_PRINT);
     }
 
     protected function predefinedPromptsToActions($prompts = []): array
@@ -144,10 +159,15 @@ class ModelAiPage extends \Filament\Pages\Page
     public function generate(): void
     {
         $data = $this->form->getState();
+        $models = config('model-ai.models');
 
         // Se è disabilitata la selezione del modello, sempre quello di default
         if (config('model-ai.disable_openai_model_selection')) {
             $data['ai_model'] = config('model-ai.default_openai_model');
+        }
+
+        if (empty($data['item'])) {
+            $data['context_data'] = $this->getAllModelsContext($models);
         }
 
         $system_prompt = config('model-ai.system_prompt');
